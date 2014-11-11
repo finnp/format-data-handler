@@ -38,7 +38,7 @@ test('simple request via query string', function (t) {
 test('accept headers', function (t) {
   var testRow = testFirstRow.bind(null, t)
 
-  t.plan(4)
+  t.plan(6)
 
   request({
     url: sUrl,
@@ -67,10 +67,26 @@ test('accept headers', function (t) {
   request({
     url: sUrl,
     headers: {
-      accept: 'test/html,application/*;'
+      accept: 'test/html,application/*;q=0.8'
     }
   })
   .pipe(testRow('[{"a":1,"b":2},{"a":2,"b":3}]', 'application/json + match'))
+  
+ request({
+   url: sUrl,
+   headers: {
+     accept: 'not/existing'
+   }
+ })
+ .pipe(testRow('[{"a":1,"b":2},{"a":2,"b":3}]', 'no matching accept header, default to application/json'))
+ 
+ request({
+   url: sUrl + '?format=csv',
+   headers: {
+     accept: 'application/json'
+   }
+ })
+ .pipe(testRow('a,b', 'prefer querystring over accept headers'))
   
 
 })

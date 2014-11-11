@@ -21,7 +21,7 @@ module.exports = function (source) {
       if(format) {
         mimetype = getMimeType(format)
       } else {
-        mimetype = parseFormat(req)
+        mimetype = parseFormat(req) || 'application/json'
         format = getFormat(mimetype)
       }
 

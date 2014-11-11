@@ -32,6 +32,10 @@ function parseFormat(headers) {
   if(!('accept' in headers)) return
     
   var types = headers.accept.split(',')
+    .map(function (type) {
+      // remove stuff like `;q=0.8` this should be properly parsed though
+      return type.split(';').shift()
+    })
   
   var format = types
     .filter(function (mimetype) {

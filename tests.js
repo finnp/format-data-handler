@@ -18,7 +18,7 @@ test('default to json array', function (t) {
 })
 
 test('simple request via query string', function (t) {
-  t.plan(3)
+  t.plan(4)
   var testRow = testFirstRow.bind(null, t)
   
   request(sUrl + '?format=csv')
@@ -26,6 +26,9 @@ test('simple request via query string', function (t) {
 
   request(sUrl + '?format=ndjson')
     .pipe(testRow('{"a":1,"b":2}', 'ndjson'))
+    
+  request(sUrl + '?format=sse')
+    .pipe(testRow('event: data', 'sse'))
     
   request(sUrl + '?format=json&style=object')
     .pipe(testRow('{"rows":[{"a":1,"b":2},{"a":2,"b":3}]}', 'json + ?style=object'))

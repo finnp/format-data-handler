@@ -75,11 +75,29 @@ test('accept headers', function (t) {
 
 })
 
+test('response headers', function (t) {
+    t.plan(4)
+    var checkCT = checkContentType.bind(null, t)
+    
+    checkCT(sUrl + '?format=csv', 'text/csv')
+    checkCT(sUrl + '?format=ndjson', 'application/x-ndjson')
+    checkCT(sUrl + '?format=sse', 'text/event-stream')
+    checkCT(sUrl + '?format=json', 'application/json')  
+})
+
 
 test('end server', function (t) {
   server.close()
   t.end()
 })
+
+// helpers
+
+function checkContentType(t, endpoint, type) {
+  request(endpoint).on('response', function (res) {
+    t.equals(res.headers['content-type'], type, type)
+  })
+}
 
 function testFirstRow(t, compareWith, msg) {
   var input = split()
@@ -91,8 +109,3 @@ function testFirstRow(t, compareWith, msg) {
   
   return input
 }
-
-// 
-// test('querystring select ',function (t) {
-//   
-// })

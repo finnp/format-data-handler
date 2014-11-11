@@ -35,7 +35,8 @@ test('simple request via query string', function (t) {
 test('accept headers', function (t) {
   var testRow = testFirstRow.bind(null, t)
 
-  t.plan(3)
+  t.plan(4)
+
   request({
     url: sUrl,
     headers: {
@@ -59,6 +60,15 @@ test('accept headers', function (t) {
     }
   })
   .pipe(testRow('{"rows":[{"a":1,"b":2},{"a":2,"b":3}]}', 'application/json + ?style=object'))
+  
+  request({
+    url: sUrl,
+    headers: {
+      accept: 'test/html,application/*;'
+    }
+  })
+  .pipe(testRow('[{"a":1,"b":2},{"a":2,"b":3}]', 'application/json + match'))
+  
 
 })
 

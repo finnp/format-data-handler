@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "format-data": "^1.0.0",
+    "negotiator": "^0.4.9",
     "request": "^2.47.0",
     "split2": "^0.2.1",
     "tape": "^3.0.3"

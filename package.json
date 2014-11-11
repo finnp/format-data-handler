@@ -1,0 +1,22 @@
+{
+  "name": "format-data-handler",
+  "version": "1.0.0",
+  "description": "HTTPHandler for formatting tabular-like object streams",
+  "main": "index.js",
+  "dependencies": {
+    "format-data": "^1.0.0",
+    "request": "^2.47.0",
+    "split2": "^0.2.1",
+    "tape": "^3.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "keywords": [
+    "httphandler",
+    "format"
+  ],
+  "author": "Finn Pauls",
+  "license": "MIT"
+}
